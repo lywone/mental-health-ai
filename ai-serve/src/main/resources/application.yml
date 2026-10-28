@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mental-health
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+
+# JWT 配置（HS256，secret 至少 32 字节）
+jwt:
+  secret: mental-health-jwt-secret-key-please-change-in-production-0123456789
+  admin-expire-seconds: 7200    # 管理端 token 有效期 2h
+  user-expire-seconds: 86400    # 用户端 token 有效期 24h
+
+# 认证开关
+auth:
+  dev-login-enabled: false      # 用户端开发登录（生产必须 false，dev 环境覆盖为 true）
+
+# 短信验证码（channel=log 仅打印日志，不真实发送；echo-dev-code=true 时接口回显验证码便于联调）
+sms:
+  channel: log                  # log / aliyun / tencent（后两者预留）
+  code-ttl-seconds: 300         # 验证码有效期 5 分钟
+  send-interval-seconds: 60     # 同一手机号发送间隔
+  daily-limit: 10               # 同一手机号每日上限
+  echo-dev-code: false
+
+# LLM（OpenAI 兼容接口：豆包/通义/DeepSeek 均可）
+# enabled=false 时不调用外部 LLM，直接走本地降级语料（规则匹配 + 兜底轮换）；
+# 启用真实 AI：改为 true 并填入 base-url / api-key / model
+llm:
+  enabled: false
+  base-url: https://api.deepseek.com
+  api-key: your-api-key
+  model: deepseek-chat
+  timeout-seconds: 5
+  system-prompt: >-
+    你是「宁澄AI助手」，请以"小暖"自称，是用户温暖的AI心理健康陪伴者。
+    交流要求：语气温和、真诚共情，多倾听、多提问，鼓励用户表达感受；
+    不提供任何医疗诊断或用药建议；当用户出现自伤、轻生等危机信号时，
+    温和而坚定地建议其寻求专业帮助或拨打心理援助热线。
+    回复简短亲切，结尾自然引导用户继续分享。
+
+# 本地文件存储（封面图上传）
+storage:
+  upload-dir: ./upload
+  url-prefix: /upload

@@ -1,0 +1,25 @@
+# Node
+node_modules/
+dist/
+*.local
+npm-debug.log*
+.pnpm-store/
+
+# Java / Maven
+target/
+*.class
+*.jar
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.trae/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 运行时数据与日志
+ai-serve/storage/
+*.log

@@ -1,0 +1,27 @@
+target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# 运行时产物
+upload/
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 本地构建工具（与工程无关）
+.tools/
